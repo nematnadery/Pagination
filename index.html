@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Users Pagination</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Decorative glowing background shapes -->
+  <span class="glow glow-1"></span>
+  <span class="glow glow-2"></span>
+
+  <div class="app">
+
+    <header class="header">
+      <span class="eyebrow">Directory</span>
+      <h1 class="title">Our <span>Users</span></h1>
+      <p class="subtitle">Browse the list page by page.</p>
+    </header>
+
+    <main class="card">
+
+      <!-- Small bar above the list -->
+      <div class="card-top">
+        <span class="card-label">All users</span>
+        <span class="page-info" id="page-info">Page 1 of 5</span>
+      </div>
+
+      <!-- The list. JS fills this with <li class="user-item"> elements.
+           The 5 items below are only samples so you can see the style;
+           JS will replace them. -->
+      <ul class="user-list" id="user-list">
+
+        <!-- Template of one item (copy this structure in JS):
+        <li class="user-item">
+          <span class="avatar">HA</span>
+          <div class="user-info">
+            <span class="user-name">Hossein Amino</span>
+            <span class="user-id">User #1</span>
+          </div>
+        </li>
+        -->
+
+        <!-- <li class="user-item">
+          <span class="avatar">HA</span>
+          <div class="user-info">
+            <span class="user-name">Hossein Amino</span>
+            <span class="user-id">User #1</span>
+          </div>
+        </li>
+        <li class="user-item">
+          <span class="avatar">ME</span>
+          <div class="user-info">
+            <span class="user-name">Melika Ehsani</span>
+            <span class="user-id">User #2</span>
+          </div>
+        </li>
+        <li class="user-item">
+          <span class="avatar">QY</span>
+          <div class="user-info">
+            <span class="user-name">Qadir Yolme</span>
+            <span class="user-id">User #3</span>
+          </div>
+        </li>
+        <li class="user-item">
+          <span class="avatar">FA</span>
+          <div class="user-info">
+            <span class="user-name">Fatemeh Alilou</span>
+            <span class="user-id">User #4</span>
+          </div>
+        </li>
+        <li class="user-item">
+          <span class="avatar">ET</span>
+          <div class="user-info">
+            <span class="user-name">Ehsan Tayyebi</span>
+            <span class="user-id">User #5</span>
+          </div>
+        </li> -->
+      </ul>
+
+      <!-- Pagination bar -->
+      <nav class="pagination" id="pagination" aria-label="Pagination">
+        <button type="button" class="nav-btn" id="prev-btn">← Prev</button>
+
+        <!-- JS creates the page buttons here. Template of one button:
+             <button type="button" class="page-btn">1</button>
+             The current page gets the extra class "active":
+             <button type="button" class="page-btn active">4</button> -->
+        <div class="page-numbers" id="page-numbers">
+          <button type="button" class="page-btn active">1</button>
+          <button type="button" class="page-btn">2</button>
+          <button type="button" class="page-btn">3</button>
+          <button type="button" class="page-btn">4</button>
+          <button type="button" class="page-btn">5</button>
+        </div>
+
+        <button type="button" class="nav-btn" id="next-btn">Next →</button>
+      </nav>
+
+    </main>
+  </div>
+
+  <script src="main.js"></script>
+</body>
+</html>
