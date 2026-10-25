@@ -33,3 +33,43 @@ const users = [
     { id: 27, firstName: 'Zarmina', lastName: 'Barakzai' },
 ]
 
+let userListContainer = document.getElementById('user-list')
+let paginationContainer = document.getElementById('page-numbers')
+
+let correntPage = 1
+let rowsCount = 5
+
+function displayUsersList (allusersArray, usersContainer, rowCount, currentPage){
+    usersContainer.innerHTML = ''
+
+    let endIndex = rowCount * currentPage
+    let starteIndex = endIndex - rowCount
+
+    let paginatedUsers = allusersArray.slice(starteIndex, endIndex)
+    
+    paginatedUsers.forEach(function(item){
+        let liElem = document.createElement('li')
+        liElem.classList.add('user-item')
+
+        let spanAvatarElem = document.createElement('span')
+        spanAvatarElem.classList.add('avatar')
+        spanAvatarElem.textContent = item.firstName.charAt(0) + item.lastName.charAt(0).toUpperCase()
+
+        let divUserInfoElem = document.createElement('div')
+        divUserInfoElem.classList.add('user-info')
+
+        let spanUserNameElem = document.createElement('span')
+        spanUserNameElem.classList.add('user-name')
+        spanUserNameElem.innerHTML = item.firstName + ' ' + item.lastName
+        divUserInfoElem.append(spanUserNameElem)
+
+
+
+        liElem.append(spanAvatarElem, divUserInfoElem)
+
+        usersContainer.append(liElem)
+    })
+    
+}
+
+displayUsersList(users, userListContainer, rowsCount, correntPage)
