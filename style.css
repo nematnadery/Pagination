@@ -168,7 +168,7 @@ body {
   border-top: 1px dashed var(--card-border);
 }
 
-.page-numbers { display: flex; gap: 8px; }
+.page-numbers { display: flex; gap: 8px; flex-wrap: wrap;}
 
 .page-btn,
 .nav-btn {

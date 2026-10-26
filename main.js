@@ -35,9 +35,15 @@ const users = [
 
 let userListContainer = document.getElementById('user-list')
 let paginationContainer = document.getElementById('page-numbers')
+let prevBtn = document.getElementById('prev-btn')
+let nextBtn = document.getElementById('next-btn')
+let pageInfo = document.getElementById('page-info')
 
 let correntPage = 1
 let rowsCount = 5
+
+// Total number of pages (27 users / 5 per page = 5.4 -> 6 pages)
+let totalPages = Math.ceil(users.length / rowsCount)
 
 function displayUsersList (allusersArray, usersContainer, rowCount, currentPage){
     usersContainer.innerHTML = ''
@@ -63,8 +69,6 @@ function displayUsersList (allusersArray, usersContainer, rowCount, currentPage)
         spanUserNameElem.innerHTML = item.firstName + ' ' + item.lastName
         divUserInfoElem.append(spanUserNameElem)
 
-
-
         liElem.append(spanAvatarElem, divUserInfoElem)
 
         usersContainer.append(liElem)
@@ -72,4 +76,70 @@ function displayUsersList (allusersArray, usersContainer, rowCount, currentPage)
     
 }
 
+function setupPagination (allusersArray, pageContainer, rowCount){
+    
+    let pageCunt = Math.ceil(allusersArray.length / rowCount)
+
+    for (let i = 1; i < pageCunt + 1; i++){
+      let btn =  paginationButtonGenarator(i, allusersArray)
+      pageContainer.append(btn)
+    }
+    
+}
+
+function paginationButtonGenarator (page, allusersArray){
+    let button = document.createElement('button')
+    button.innerHTML = page
+    button.classList.add('page-btn')
+
+    if(page === correntPage){
+        button.classList.add('active')
+    }
+
+    // All the work (list, active button, page-info, prev/next) is done in goToPage
+    button.addEventListener('click', function(){
+        goToPage(page)
+    })
+    return button
+}
+
+// Updates everything that depends on the current page
+function updatePaginationState(){
+    let allButtons = paginationContainer.querySelectorAll('.page-btn')
+
+    allButtons.forEach(function(btn, index){
+        // index starts at 0, pages start at 1, so index + 1 is the page of this button.
+        // toggle(name, true) adds the class, toggle(name, false) removes it.
+        btn.classList.toggle('active', index + 1 === correntPage)
+    })
+
+    pageInfo.textContent = 'Page ' + correntPage + ' of ' + totalPages
+
+    // Disable Prev on the first page and Next on the last page
+    prevBtn.disabled = correntPage === 1
+    nextBtn.disabled = correntPage === totalPages
+}
+
+// One function to change the page, used by page buttons, Prev and Next
+function goToPage(page){
+    correntPage = page
+    displayUsersList(users, userListContainer, rowsCount, correntPage)
+    updatePaginationState()
+}
+
+prevBtn.addEventListener('click', function(){
+    // The check is a safety net; a disabled button doesn't fire click anyway
+    if(correntPage > 1){
+        goToPage(correntPage - 1)
+    }
+})
+
+nextBtn.addEventListener('click', function(){
+    if(correntPage < totalPages){
+        goToPage(correntPage + 1)
+    }
+})
+
+setupPagination(users, paginationContainer, rowsCount)
 displayUsersList(users, userListContainer, rowsCount, correntPage)
+updatePaginationState()
